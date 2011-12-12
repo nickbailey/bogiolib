@@ -1,0 +1,10 @@
+
+BogioLib	
+----------
+
+A C library incorporating the I/O functions required for the bogen project
+
+Also useful as a general purpose C library for communicating easily
+with comedi devices.
+
+
