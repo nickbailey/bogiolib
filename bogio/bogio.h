@@ -1,6 +1,10 @@
 #ifndef __BOGIO_H__
 #define __BOGIO_H__
 
+#ifdef __cplusplus
+ extern "C" {
+#endif 
+
 #include <comedi.h>
 #include <comedilib.h>
 
@@ -109,5 +113,9 @@ void bogio_release_buf(bogio_buf *buf);
 int bogio_close(bogio_spec *spec);
 
 /*! @} */
+
+#ifdef __cplusplus
+ }
+#endif 
 
 #endif
