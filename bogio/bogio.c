@@ -175,11 +175,11 @@ int bogio_read_frames(bogio_buf *buf, unsigned int frames,
     /* Reserve a temporary buffer of the I/O device's type */
     raw = (sampl_t *)alloca(frames*framesize);
     comedi_poll(spec->m_dev, spec->subdevice);
-printf("Going to read %u bytes from fd %d, %d available... ", frames*framesize, comedi_fileno(spec->m_dev), comedi_get_buffer_contents(spec->m_dev, spec->subdevice)); fflush(stdout);
+//printf("Going to read %u bytes from fd %d, %d available... ", frames*framesize, comedi_fileno(spec->m_dev), comedi_get_buffer_contents(spec->m_dev, spec->subdevice)); fflush(stdout);
     /* Fill it with data */
     bytes = read(comedi_fileno(spec->m_dev), raw, frames*framesize);
-perror("read");
-printf("Got %d\n", bytes);
+//perror("read");
+//printf("Got %d\n", bytes);
     /* Ensure the read completed */
     if (bytes <= 0)
         return bytes;
