@@ -85,14 +85,14 @@ bogio_spec *bogio_open(bogio_spec *spec)
         comedi_perror("comedi_command_test -- first attempt");
         exit(-1);
     }
-    fprintf(stderr,"first test returned %d\n",i);
+    /* fprintf(stderr,"first test returned %d\n",i); */
 
     i = comedi_command_test(spec->m_dev, spec->m_cmd);
     if (i < 0){
         comedi_perror("comedi_command_test -- second attempt");
         return NULL;
     }
-    fprintf(stderr,"second test returned %d\n",i);
+    /* fprintf(stderr,"second test returned %d\n",i); */
     
     if (i != 0){
         fprintf(stderr,"Error preparing command\n");
