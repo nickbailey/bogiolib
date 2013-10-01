@@ -32,13 +32,13 @@ typedef struct {
     unsigned int    sample_rate;   /**< Effective frame rate of converter in Hz */
     unsigned int    oversampling;  /**< Number of readings per frame produced */
     unsigned int    subdevice;     /**< Comedi subdevice from which to read */
-    unsigned int    range;         /**< Measurement range */
+    unsigned int    range;         /**< Measurement range (i.e sensitivity) */
+    comedi_range  **fsd;           /**< Range of device's channels */
     unsigned int    aref;          /**< Analogue voltage reference */
     /* Private attributes */
     comedi_cmd     *m_cmd;         /**< \private Comedi command to execute */
     comedi_t       *m_dev;         /**< \private Comedilib device handle*/
-    comedi_range   *m_range;       /**< \private Range of device (chan 0) */
-    lsampl_t        m_max_sample;  /**< \private Maximum sample value (chan 0) */
+    lsampl_t       *m_max_sample;  /**< \private Maximum sample values */
 } bogio_spec;
 
 /*!

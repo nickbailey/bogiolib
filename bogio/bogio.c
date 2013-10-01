@@ -114,12 +114,20 @@ bogio_spec *bogio_open(bogio_spec *spec)
     }
     
     /* That worked: report the curring settings */
-    /* Read the maxdata value and range for channel 0;
+    /* Read the maxdata value and range for each channel;
        it will be used later for normalisation */
-    spec->m_max_sample = comedi_get_maxdata(spec->m_dev,
-                                            spec->subdevice,
-                                            0);
-    spec->m_range = comedi_get_range(spec->m_dev, spec->subdevice, 0, spec->range);
+    spec->m_max_sample = calloc(spec->channels, sizeof(lsampl_t));
+    spec->fsd = calloc(spec->channels, sizeof(comedi_range *));
+    for (i = 0 ; i < spec->channels ; i++) {
+        spec->m_max_sample[i] = comedi_get_maxdata(spec->m_dev,
+                                                   spec->subdevice,
+                                                   i);
+        spec->fsd[i]          = comedi_get_range(spec->m_dev,
+                                                 spec->subdevice,
+                                                 i,
+                                                 spec->range);
+    }
+
     return spec;
 }
 
@@ -191,8 +199,8 @@ int bogio_read_frames(bogio_buf *buf, unsigned int frames,
     /* Convert to bogio's native type and normalise. */
     for (i = 0; i < frames * buf->spf ; i++)
         buf->samples[i] = (bogio_sample_t)comedi_to_phys(raw[i],
-                                                         spec->m_range,
-                                                         spec->m_max_sample);
+                                                         spec->fsd[i],
+                                                         spec->m_max_sample[i]);
     return frames;
 }
 
@@ -201,6 +209,8 @@ int bogio_close(bogio_spec *spec)
     int r;
     r = comedi_cancel(spec->m_dev, spec->subdevice);
     r |= comedi_close(spec->m_dev);
+    free(spec->fsd);
+    free(spec->m_max_sample);
     free(spec->m_cmd->chanlist);
     free(spec->m_cmd);
     return r;
