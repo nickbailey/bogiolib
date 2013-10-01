@@ -114,10 +114,12 @@ bogio_spec *bogio_open(bogio_spec *spec)
     }
     
     /* That worked: report the curring settings */
-    /* Read the maxdata value for channel 0; used later for normalisation */
+    /* Read the maxdata value and range for channel 0;
+       it will be used later for normalisation */
     spec->m_max_sample = comedi_get_maxdata(spec->m_dev,
                                             spec->subdevice,
                                             0);
+    spec->m_range = comedi_get_range(spec->m_dev, spec->subdevice, 0, spec->range);
     return spec;
 }
 
@@ -188,9 +190,9 @@ int bogio_read_frames(bogio_buf *buf, unsigned int frames,
     
     /* Convert to bogio's native type and normalise. */
     for (i = 0; i < frames * buf->spf ; i++)
-        buf->samples[i] = (bogio_sample_t)raw[i] /
-                (bogio_sample_t)(spec->m_max_sample);
-    
+        buf->samples[i] = (bogio_sample_t)comedi_to_phys(raw[i],
+                                                         spec->m_range,
+                                                         spec->m_max_sample);
     return frames;
 }
 
