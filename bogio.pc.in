@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: @GENERIC_LIBRARY_NAME@
 Description: Bogen low-level hardware access utilities
 Version: @VERSION@
-Libs: -L${libdir} -l@GENERIC_LIBRARY_NAME@ -lcomedi
+Libs: -L${libdir} -l@GENERIC_LIBRARY_NAME@ -lcomedi -lm
 Cflags: -I${includedir} 
 
