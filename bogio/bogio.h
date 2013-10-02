@@ -73,7 +73,9 @@ bogio_spec *bogio_open(bogio_spec *spec);
 
 /*!
  * \brief  Reads a given number of frames into the supplied buffer.
-           Data is normalised in the range 0..1.0.
+           Data converted to device-specific values. The range of
+           each channel can be obtained from the fsd array of the
+           spec if further normalisation is required.
  * \param[in] buf Buffer into which frames should be written. Regardless
  *         of the number of frames requested, the number written shall
  *         not exceed the frames field of the supplied buffer.

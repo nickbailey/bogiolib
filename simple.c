@@ -45,7 +45,8 @@ int main(int argc, char *argv[])
 		printf("\n");
 	}
 
-	/* Free the buffer */
+	/* Shut sown the comedi framework and free the buffer */
+	bogio_close(&bspec);
 	bogio_release_buf(bbuf);
 	/* That's all folks */
 	return 0;

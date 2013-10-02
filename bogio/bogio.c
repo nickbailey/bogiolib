@@ -113,7 +113,7 @@ bogio_spec *bogio_open(bogio_spec *spec)
         return NULL;
     }
     
-    /* That worked: report the curring settings */
+    /* That worked: report the current settings */
     /* Read the maxdata value and range for each channel;
        it will be used later for normalisation */
     spec->m_max_sample = calloc(spec->channels, sizeof(lsampl_t));
