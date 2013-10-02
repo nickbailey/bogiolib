@@ -76,13 +76,13 @@ bogio_spec *bogio_open(bogio_spec *spec);
            Data converted to device-specific values. The range of
            each channel can be obtained from the fsd array of the
            spec if further normalisation is required.
+ * \param[in] spec Spec of the interface from which to read.
  * \param[in] buf Buffer into which frames should be written. Regardless
  *         of the number of frames requested, the number written shall
  *         not exceed the frames field of the supplied buffer.
  * \param[in] frames Number of frames requested.
  * \param[in] blocking If non-zero, block until frames have been read.
  *         Otherwise, return immediately with whatever data is available.
- * \param[in] spec Spec of the interface from which to read.
  * \return Number of frames actually read, -1 for error.
  * \todo   Implement oversampling.
  * \bug    Assumes device sends samples of type sample_t. Always true?
@@ -90,8 +90,8 @@ bogio_spec *bogio_open(bogio_spec *spec);
  *         the subdevice flag SDF_LSAMPL to determine if the subdevice
  *         uses sampl_t or lsampl_t".
  */
-int bogio_read_frames(bogio_buf *buf, unsigned int frames,
-                      int blocking, const bogio_spec *spec);
+int bogio_read_frames(const bogio_spec *spec, bogio_buf *buf,
+                      unsigned int frames, int blocking);
 
 /*!
  * \brief Allocate memory for a bogio_buf suitable for use with the given

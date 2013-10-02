@@ -162,8 +162,10 @@ void bogio_release_buf(bogio_buf *buf)
     free(buf);
 }
 
-int bogio_read_frames(bogio_buf *buf, unsigned int frames,
-                               int blocking, const bogio_spec *spec)
+int bogio_read_frames(const bogio_spec *spec,
+                      bogio_buf *buf,
+                      unsigned int frames,
+                      int blocking)
 {
     int bytes, i;
     sampl_t *raw; /* Place to store raw samples before normalisation */

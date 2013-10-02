@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	for (fr = 0; fr < MAXFRAMES; fr++) {
 		printf("%02i:", fr);
 		/* Read one frame of samples, blocking, into bbuf */
-		bogio_read_frames(bbuf, 1U, 1, &bspec);
+		bogio_read_frames(&bspec, bbuf, 1U, 1);
 		for (ch = 0; ch < bbuf->spf; ch++)
 			/* Print only these channels... */
 			if (ch == 5)
