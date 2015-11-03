@@ -9,7 +9,7 @@ c_sources = bogio.c
 library_includedir=$(includedir)
 library_include_HEADERS = $(h_sources)
 
-INCLUDES = -I$(top_srcdir)
+AM_CPPFLAGS = -I$(top_srcdir)
 
 lib_LTLIBRARIES= libbogio.la
 libbogio_la_SOURCES= $(h_sources) $(c_sources)
